@@ -10,12 +10,12 @@ in `/` rather then `/tfr`
 
 For now run the container like so:
 
-    docker run -it --rm -v /path/to/storage:/trf mcrmonkey/magicwormhole
+    docker run -it --rm -v /path/to/storage:/tfr mcrmonkey/magicwormhole
 
 
 ### Sending
 
-    wormhole send /trf/file-to-send.txt
+    wormhole send /tfr/file-to-send.txt
 
 ### Receiving
 
