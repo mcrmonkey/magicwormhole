@@ -1,21 +1,12 @@
-From debian:latest
-LABEL maintainer ant <git@manchestermonkey.co.uk>
+FROM alpine:3.11
+LABEL maintainer "ant <git@manchestermonkey.co.uk>"
 
-
-RUN  apt-get update -qq && apt-get install -qq python-setuptools \
-		ca-certificates curl wget build-essential python-dev \
-		python-cffi libffi-dev libxslt1-dev zlib1g-dev \
-		libxslt1-dev zlib1g-dev libssl-dev libxslt1-dev zlib1g-dev \
-	&& easy_install pip \
-	&& pip install --upgrade cffi \
-    && pip install magic-wormhole \
-	&& mkdir /tfr \
-	&& rm /usr/share/doc -Rf \
-	&& rm /usr/share/man -Rf \
-	&& rm /var/lib/apt/lists -Rf \
-
+RUN apk add --no-cache python3 py3-cffi && \
+    apk add --no-cache --virtual .build-deps python3-dev libffi-dev openssl-dev build-base && \
+    pip3 install magic-wormhole && \
+    apk del .build-deps && rm /root/.cache -Rf
 
 WORKDIR /tfr
 
-##ENTRYPOINT ["wormhole"]
-
+ENTRYPOINT ["wormhole"]
+CMD ["receive"]
